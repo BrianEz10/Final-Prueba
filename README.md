@@ -2,17 +2,6 @@
 
 Este repositorio contiene el código fuente completo para el proyecto "Food Store", dividido en un frontend (Vite + TypeScript) y un backend (Java + Spring Boot).
 
-## 🚀 Estructura del Proyecto
-
-## 📋 Requisitos Previos
-
-* **Java 17** o superior (para el backend)
-* Un IDE de Java (como **IntelliJ IDEA** o Eclipse) (para el backend)
-* **Node.js** v18 o superior (para el frontend)
-* **npm** (generalmente incluido con Node.js) (para el frontend)
-
----
-
 ## 📋 Requisitos Previos
 
 * **Java 17** o superior (para el backend)
