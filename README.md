@@ -13,6 +13,16 @@ Este repositorio contiene el código fuente completo para el proyecto "Food Stor
 
 ---
 
+## 📋 Requisitos Previos
+
+* **Java 17** o superior (para el backend)
+* Un IDE de Java (como **IntelliJ IDEA** o Eclipse) (para el backend)
+* **Visual Studio Code** (Recomendado para el frontend)
+* **Node.js** v18 o superior (para el frontend)
+* **npm** (generalmente incluido con Node.js) (para el frontend)
+
+---
+
 ## ⚙️ 1. Inicialización del Backend (Spring Boot)
 
 El backend es el servidor de Spring Boot que debe estar corriendo en `http://localhost:8080` para que el frontend pueda conectarse a él.
@@ -38,30 +48,31 @@ El backend es el servidor de Spring Boot que debe estar corriendo en `http://loc
 
 El frontend es la aplicación web con la que interactúa el usuario, la cual se conectará al backend.
 
-1.  **Abrir una Nueva Terminal:**
-    * Abre una **nueva terminal** (no uses la que está ocupada por el backend).
+1.  **Abrir el Proyecto:**
+    * Abre **Visual Studio Code**.
+    * Selecciona `File` > `Open Folder...` (Archivo > Abrir Carpeta...).
+    * Navega y selecciona la carpeta **`frontend/`** de este repositorio.
 
-2.  **Navegar a la Carpeta:**
-    * Muévete al directorio del frontend.
-    ```bash
-    cd frontend
-    ```
+2.  **Abrir la Terminal:**
+    * Dentro de VSCode, abre la terminal integrada.
+    * Puedes hacerlo desde el menú superior: `Terminal` > `New Terminal` (Nueva Terminal).
 
-3.  **Instalar Dependencias:**
-    * Este comando descarga todas las librerías que el proyecto necesita (Vite, TypeScript, etc.). **Solo necesitas hacerlo la primera vez.**
+3.  **Instalar Dependencias (Solo la primera vez):**
+    * Este comando descarga todas las librerías que el proyecto necesita. En la terminal de VSCode, ejecuta:
     ```bash
     npm install
     ```
 
 4.  **Ejecutar el Servidor de Desarrollo:**
-    * Este comando inicia el servidor de Vite.
+    * En la misma terminal, inicia el servidor de Vite:
     ```bash
+Gas
     npm run dev
     ```
 
 5.  **Verificación:**
     * La terminal te mostrará un mensaje.
     * Busca la línea: `Local: http://localhost:5173/`
-    * Abre esa URL (`http://localhost:5173`) en tu navegador.
+    * Abre esa URL (`http://localhost:5173`) en tu navegador (puedes hacer `Ctrl + Clic` en el enlace).
 
 ¡Y listo! Con ambos servidores corriendo, ahora puedes usar la aplicación web, que se conectará automáticamente al backend para el login y el resto de las funciones.
