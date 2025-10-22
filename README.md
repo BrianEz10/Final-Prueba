@@ -55,7 +55,6 @@ El frontend es la aplicación web con la que interactúa el usuario, la cual se 
 4.  **Ejecutar el Servidor de Desarrollo:**
     * En la misma terminal, inicia el servidor de Vite:
     ```bash
-Gas
     npm run dev
     ```
 
