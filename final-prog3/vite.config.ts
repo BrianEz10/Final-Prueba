@@ -1,43 +1,73 @@
-import { defineConfig } from 'vite';
-import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { defineConfig, type Plugin, type ViteDevServer } from "vite";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import fs from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-function entradasHtml() {
-    const paginas = [
-    'auth/login/login',
-    'auth/register/register',
-    'store/home/home',
-    'store/productDetail/productDetail',
-    'store/cart/cart',
-    'client/orders/orders',
-    'admin/adminHome/adminHome',
-    'admin/categories/categories',
-    'admin/products/products',
-    'admin/orders/orders'
-    ];
+function getHtmlEntries() {
+    const baseDir = resolve(__dirname, "src/pages");
+    const entries: Record<string, string> = {};
 
-    const entradas: { [key: string]: string } = {};;
-    paginas.forEach(pagina => {
-    const nombrePagina = pagina.split('/').pop();
-
-if (nombrePagina) {
-    entradas[nombrePagina] = resolve(__dirname, `src/pages/${pagina}.html`);
-}
-});
-
-    return entradas;
-}
-
-export default defineConfig({
-    build: {
-    rollupOptions: {
-        input: {
-        main: resolve(__dirname, 'index.html'),
-        ...entradasHtml()
+    function scan(dir: string) {
+    const files = fs.readdirSync(dir);
+    for (const file of files) {
+        const fullPath = resolve(dir, file);
+        const stat = fs.statSync(fullPath);
+        if (stat.isDirectory()) {
+        scan(fullPath);
+        } else if (file.endsWith(".html")) {
+        const relative = fullPath.split("src/")[1].replace(/\\/g, "/");
+        entries[relative] = fullPath;
         }
     }
     }
+
+    scan(baseDir);
+    return entries;
+}
+
+function ServeHtmlPlugin(): Plugin {
+    return {
+    name: "serve-html-plugin",
+    configureServer(server: ViteDevServer) {
+        server.middlewares.use((req: any, res: any, next: any) => {
+        if (req.url && req.url.endsWith(".html") && req.url.startsWith("/src/pages/")) {
+            const filePath = resolve(__dirname, "." + req.url);
+            if (fs.existsSync(filePath)) {
+            res.statusCode = 200;
+            res.setHeader("Content-Type", "text/html");
+            res.end(fs.readFileSync(filePath));
+            return;
+            }
+        }
+        next();
+        });
+    },
+    };
+}
+
+export default defineConfig({
+    root: ".",
+    build: {
+    rollupOptions: {
+        input: {
+        index: resolve(__dirname, "index.html"),
+        ...getHtmlEntries(),
+        },
+    },
+    outDir: "dist",
+    },
+    server: {
+    open: "/src/pages/auth/login/login.html",
+    fs: {
+        allow: [
+        resolve(__dirname, "src"),
+        resolve(__dirname),
+        ],
+    },
+    },
+    plugins: [ServeHtmlPlugin()],
 });
+

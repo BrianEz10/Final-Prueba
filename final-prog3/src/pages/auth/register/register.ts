@@ -14,7 +14,7 @@ form.addEventListener("submit", async (event) => {
     alert("Registro exitoso ✅");
     localStorage.setItem("user", JSON.stringify(user));
 
-    window.location.href = "../login/login.html";
+    window.location.href = "/src/pages/auth/login/login.html";
     } catch (error) {
     alert("Error al registrarse ❌");
     console.error(error);
